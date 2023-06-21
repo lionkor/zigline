@@ -186,10 +186,7 @@ fn restoreTerminal(tty: fs.File, original_state: os.termios) !void {
     try os.tcsetattr(tty.handle, .FLUSH, original_state);
 }
 
-pub fn readline(allocator: std.mem.Allocator, prompt: []const u8, output: []u8) !?usize {
-    _ = output;
-    _ = prompt;
-    _ = allocator;
+pub fn readline(_: std.mem.Allocator, prompt: []const u8, output: []u8) !?usize {
     var tty = try fs.cwd().openFile("/dev/tty", .{ .mode = .read_write });
     defer tty.close();
 
